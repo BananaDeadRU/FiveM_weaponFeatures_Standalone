@@ -16,8 +16,8 @@ Citizen.CreateThread(function()
 
 	-- убирает автоперезарядку, автосмену оружия, оставляет фонарик включенным
 	SetWeaponsNoAutoreload(true)
-    SetWeaponsNoAutoswap(true)
-    SetFlashLightKeepOnWhileMoving(true)
+    	SetWeaponsNoAutoswap(true)
+    	SetFlashLightKeepOnWhileMoving(true)
 	
 	while true do
 		Citizen.Wait(0)
