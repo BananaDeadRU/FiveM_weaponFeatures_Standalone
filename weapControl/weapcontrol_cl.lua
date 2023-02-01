@@ -11,28 +11,28 @@ end
 -- основной тред скрипта
 Citizen.CreateThread(function()
 	-- переменные для удобства и разгрузки клиента
-	local ped = GetPlayerPed(-1)
-	local weapon = GetSelectedPedWeapon(ped)
 
 	-- убирает автоперезарядку, автосмену оружия, оставляет фонарик включенным
 	SetWeaponsNoAutoreload(true)
-    	SetWeaponsNoAutoswap(true)
-    	SetFlashLightKeepOnWhileMoving(true)
+    SetWeaponsNoAutoswap(true)
+    SetFlashLightKeepOnWhileMoving(true)
 	
 	while true do
 		Citizen.Wait(0)
+		local ped = GetPlayerPed(-1)
+		local weapon = GetSelectedPedWeapon(ped)
 		-- проверка на голограф. для снайпы mk2
 		local getComp = HasPedGotWeaponComponent(ped, GetHashKey('WEAPON_MARKSMANRIFLE_MK2'), GetHashKey('COMPONENT_AT_SIGHTS'))
 
 		-- проверка на снайперку
-		if IsPlayerFreeAiming(PlayerId()) then
+		if IsHudComponentActive(14) then
 			if not(HashInTable_HIT(GetSelectedPedWeapon(ped), scopedWeapons)) then
 				HideHudComponentThisFrame(14)
 			end
 		end
 		-- проверка для снапы мк2
 
-		if IsPlayerFreeAiming(PlayerId()) then
+		if IsHudComponentActive(14) then
 			if GetSelectedPedWeapon(ped) == GetHashKey('WEAPON_MARKSMANRIFLE_MK2') then
 				if getComp == 1 then 
 					HideHudComponentThisFrame(14)
@@ -52,19 +52,19 @@ Citizen.CreateThread(function()
 		-- тряски для пушек
 		if HashInTable_HIT(GetSelectedPedWeapon(ped), small_recoil) then
 			if IsPedShooting(ped) then
-				ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.04)
+				ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.05)
 			end
 		end
 
 		if HashInTable_HIT(GetSelectedPedWeapon(ped), medium_recoil) then
 			if IsPedShooting(ped) then
-				ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.04)
+				ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.09)
 			end
 		end
 
 		if HashInTable_HIT(GetSelectedPedWeapon(ped), heavy_recoil) then
 			if IsPedShooting(ped) then
-				ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.04)
+				ShakeGameplayCam('SMALL_EXPLOSION_SHAKE', 0.2)
 			end
 		end
 		
