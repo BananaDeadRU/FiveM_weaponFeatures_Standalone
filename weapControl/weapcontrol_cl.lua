@@ -13,6 +13,12 @@ Citizen.CreateThread(function()
 	-- переменные для удобства и разгрузки клиента
 	local ped = GetPlayerPed(-1)
 	local weapon = GetSelectedPedWeapon(ped)
+
+	-- убирает автоперезарядку, автосмену оружия, оставляет фонарик включенным
+	SetWeaponsNoAutoreload(true)
+    SetWeaponsNoAutoswap(true)
+    SetFlashLightKeepOnWhileMoving(true)
+	
 	while true do
 		Citizen.Wait(0)
 		-- проверка на голограф. для снайпы mk2
@@ -20,7 +26,7 @@ Citizen.CreateThread(function()
 
 		-- проверка на снайперку
 		if IsPlayerFreeAiming(PlayerId()) then
-			if not(HashInTable_HIT(GetSelectedPedWeapon(ped), sniperRifles_wc)) then
+			if not(HashInTable_HIT(GetSelectedPedWeapon(ped), scopedWeapons)) then
 				HideHudComponentThisFrame(14)
 			end
 		end
